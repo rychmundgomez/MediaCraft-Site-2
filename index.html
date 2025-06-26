@@ -51,6 +51,7 @@
       align-items: center;
       padding: 10px 5%;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      flex-wrap: wrap;
     }
 
     .logo img {
@@ -62,6 +63,8 @@
       list-style: none;
       gap: 20px;
       padding: 0;
+      margin: 0;
+      align-items: center;
     }
 
     nav a {
@@ -78,6 +81,7 @@
       border-radius: 5px;
       cursor: pointer;
       font-weight: bold;
+      text-decoration: none;
     }
 
     .hero {
@@ -149,6 +153,10 @@
       padding: 60px 20px;
     }
 
+    #contact {
+      margin-bottom: 40px;
+    }
+
     footer {
       text-align: center;
       padding: 20px;
@@ -174,16 +182,35 @@
       .hero-image {
         margin-top: 20px;
       }
+
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      header {
+        text-align: center;
+        flex-direction: column;
+        gap: 10px;
+      }
     }
   </style>
 </head>
 <body>
   <header>
+    <div class="logo">
+      <img src="https://i.ibb.co/shRNnZW/7-D218-D48-FB7-E-4275-B4-E2-A647-CBD9-B3-BB.png" alt="MediaCraft Logo" />
+    </div>
     <nav>
       <ul>
         <li><a href="#services">Services</a></li>
         <li><a href="#gallery">Gallery</a></li>
         <li><a href="#mission">Mission</a></li>
+        <li>
+          <a href="https://wa.me/233540281796" target="_blank" rel="noopener noreferrer">
+            <button class="btn">Contact Us</button>
+          </a>
+        </li>
         <li><span class="dark-toggle" onclick="toggleMode()">🌗</span></li>
       </ul>
     </nav>
@@ -193,7 +220,6 @@
     <div class="hero-text">
       <h1>MediaCraft</h1>
       <p>Your Digital Command Center for Creative Excellence.</p>
-      <button class="btn">Explore Our Services</button>
     </div>
     <div class="hero-image"><img src="https://i.ibb.co/shRNnZW/7-D218-D48-FB7-E-4275-B4-E2-A647-CBD9-B3-BB.png" alt=""/></div>
   </section>
@@ -236,7 +262,7 @@
   <section class="section" id="contact" style="text-align: center;" data-aos="fade-in">
     <h2>Ready to Begin?</h2>
     <p>Get in touch and let’s bring your vision to life with MediaCraft.</p>
-    <a href="https://wa.me/233540281796" class="cta-btn" target="_blank" rel="noopener noreferrer">
+    <a href="https://wa.me/233540281796" class="btn" target="_blank" rel="noopener noreferrer">
       Contact Us
     </a>
   </section>
