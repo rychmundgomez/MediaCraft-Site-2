@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MediaCraft</title>
+  <title>MediaCraft Hub</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
   <style>
@@ -34,14 +34,6 @@
       max-width: 1200px;
       margin: auto;
       padding: 20px 0;
-    }
-
-    h1, h2, h3 {
-      color: var(--primary);
-    }
-
-    .dark-mode h1, .dark-mode h2, .dark-mode h3 {
-      color: var(--secondary);
     }
 
     header {
@@ -80,73 +72,38 @@
       font-weight: bold;
     }
 
-    .hero {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      padding: 60px 0;
+    .dark-toggle {
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: var(--primary);
     }
 
-    .hero-image img {
-      width: 300px;
-      border-radius: 12px;
-    }
-
-    .hero-text {
-      flex: 1;
-      padding-right: 20px;
-    }
-
-    .services-grid, .gallery-grid {
+    .hero-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
       margin-top: 30px;
     }
 
-    .card, .choose-item {
-      background: var(--bg-light);
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
+    .hero-grid img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 12px;
       transition: transform 0.3s ease;
     }
 
-    .card:hover, .choose-item:hover {
-      transform: translateY(-5px);
-    }
-
-    .card i, .choose-item i {
-      font-size: 2rem;
-      color: var(--secondary);
-      margin-bottom: 10px;
-    }
-
-    .gallery-grid img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      transition: transform 0.3s;
-      border-radius: 8px;
-    }
-
-    .gallery-grid img:hover {
+    .hero-grid img:hover {
       transform: scale(1.05);
     }
 
-    .mission, .why-choose-us {
-      margin-top: 60px;
+    h1, h2, h3 {
+      color: var(--primary);
+      margin-bottom: 15px;
     }
 
-    .choose-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-    }
-
-    .join {
-      text-align: center;
-      padding: 60px 20px;
+    .dark-mode h1, .dark-mode h2, .dark-mode h3 {
+      color: var(--secondary);
     }
 
     footer {
@@ -156,23 +113,9 @@
       font-size: 0.9rem;
     }
 
-    .dark-toggle {
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: var(--primary);
-    }
-
-    body.dark-mode nav a, body.dark-mode footer {
-      color: var(--white);
-    }
-
     @media (max-width: 768px) {
-      .hero {
-        flex-direction: column;
-        text-align: center;
-      }
-      .hero-image {
-        margin-top: 20px;
+      .hero-grid img {
+        height: 200px;
       }
     }
   </style>
@@ -190,66 +133,24 @@
     </nav>
   </header>
 
+  <!-- NEW HERO SECTION WITH 4 IMAGES -->
   <section class="hero container" data-aos="fade-up">
-    <div class="hero-text">
-      <h1>MediaCraft</h1>
-      <p>Innovative digital solutions for modern businesses.</p>
-      <button class="btn">Explore Our Services</button>
+    <h1>Welcome to MediaCraft Hub</h1>
+    <div class="hero-grid">
+      <img src="https://i.ibb.co/JWX02pbT/A8297637-3-A58-4759-B212-EB9-E539-D0-E58.png" alt="Hero 1"/>
+      <img src="https://i.ibb.co/5W0Fk6zK/8-AD61-AE4-4517-4146-BB8-E-503602-E29864.png" alt="Hero 2"/>
+      <img src="https://i.ibb.co/bgFWjFtH/8-CCDB9-DA-703-B-486-A-9-EBB-8-DDB5-F2-E7-D4-A.png" alt="Hero 3"/>
+      <img src="https://i.ibb.co/xqNDKTNT/DAC673-D1-723-F-4-CED-8-F41-66-F385-CD86-BC.png" alt="Hero 4"/>
     </div>
-    <div class="hero-image"><img src="https://i.ibb.co/rG4y7cJ/half-square.png" alt=""/></div>
-  </section>
-
-  <section id="services" class="container" data-aos="fade-right">
-    <h2>Our Services</h2>
-    <div class="services-grid">
-      <div class="card"><i class="fas fa-paint-brush"></i><h3>Design</h3><p>Creative branding & visuals</p></div>
-      <div class="card"><i class="fas fa-video"></i><h3>Video</h3><p>Production and editing</p></div>
-      <div class="card"><i class="fas fa-music"></i><h3>Music</h3><p>Original tracks & mastering</p></div>
-      <div class="card"><i class="fas fa-bullhorn"></i><h3>Marketing</h3><p>Social media and SEO</p></div>
-    </div>
-  </section>
-
-  <section id="gallery" class="container" data-aos="zoom-in">
-    <h2>Gallery</h2>
-    <div class="gallery-grid">
-      <img src="https://i.ibb.co/VjQVcVj/pexels-3motional-studio-407102-1081685.jpg" alt=""/>
-      <img src="https://i.ibb.co/FmJFNyG/pexels-alexfu-1188751.jpg" alt=""/>
-      <img src="https://i.ibb.co/6F2zMDC/pexels-chuck-3587478.jpg" alt=""/>
-      <img src="https://i.ibb.co/qpHtvcr/pexels-joshsorenson-1714202.jpg" alt=""/>
-    </div>
-  </section>
-
-  <section id="mission" class="container mission" data-aos="fade-left">
-    <h2>Our Mission</h2>
-    <p>Empowering clients through creative and impactful digital solutions.</p>
-  </section>
-
-  <section class="container why-choose-us" data-aos="fade-up">
-    <h2>Why Choose Us</h2>
-    <div class="choose-grid">
-      <div class="choose-item"><i class="fas fa-award"></i><div><h3>Expertise</h3><p>Industry professionals</p></div></div>
-      <div class="choose-item"><i class="fas fa-lightbulb"></i><div><h3>Innovation</h3><p>Cutting-edge solutions</p></div></div>
-      <div class="choose-item"><i class="fas fa-users"></i><div><h3>Clients First</h3><p>Customer satisfaction</p></div></div>
-      <div class="choose-item"><i class="fas fa-check-circle"></i><div><h3>Quality</h3><p>Premium delivery</p></div></div>
-    </div>
-  </section>
-
-  <section class="section" id="contact" style="text-align: center;" data-aos="fade-in">
-    <h2>Ready to Begin?</h2>
-    <p>Get in touch and let’s bring your vision to life with MediaCraft.</p>
-    <a href="https://wa.me/233540281796" class="cta-btn" target="_blank" rel="noopener noreferrer">
-      Contact Us
-    </a>
   </section>
 
   <footer>
-    <p>&copy; 2025 MediaCraft. All rights reserved.</p>
+    <p>&copy; 2025 MediaCraft Hub. All rights reserved.</p>
   </footer>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init();
-
     function toggleMode() {
       document.body.classList.toggle("dark-mode");
     }
