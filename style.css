@@ -1,0 +1,363 @@
+/* Color Palette */
+:root {
+    --color-primary: #14213d;
+    --color-secondary: #fca311;
+    --color-text: #000000;
+    --color-background: #e5e5e5;
+    --color-white: #ffffff;
+}
+
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+header {
+    background-color: var(--color-white);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px 0;
+}
+
+header .logo img {
+    height: 50px;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+header nav ul li .get-started {
+    background-color: var(--color-secondary);
+    border: none;
+    padding: 10px 20px;
+    color: var(--color-white);
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+header nav ul li .get-started:hover {
+    background-color: darken(var(--color-secondary), 10%);
+}
+
+/* Hero Section Styles */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 0;
+}
+
+.hero-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hero-text {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.hero-text h1 {
+    font-size: 48px;
+    color: var(--color-primary);
+    margin-bottom: 20px;
+}
+
+.hero-text p {
+    font-size: 18px;
+    color: var(--color-text);
+    margin-bottom: 30px;
+}
+
+.hero-text .hero-btn {
+    background-color: var(--color-secondary);
+    border: none;
+    padding: 15px 30px;
+    color: var(--color-white);
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.hero-text .hero-btn:hover {
+    background-color: darken(var(--color-secondary), 10%);
+}
+
+.hero-image {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.hero-image img {
+    max-width: 70%;
+    border-radius: 15px;
+}
+
+/* Services Section Styles */
+.services {
+    background-color: var(--color-white);
+    padding: 60px 0;
+    text-align: center;
+}
+
+.services h2 {
+    font-size: 36px;
+    color: var(--color-primary);
+    margin-bottom: 40px;
+}
+
+.services-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.service-card {
+    background-color: var(--color-background);
+    border-radius: 10px;
+    padding: 20px;
+    flex: 1 1 calc(30% - 20px);
+    max-width: calc(30% - 20px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+}
+
+.service-card i {
+    font-size: 40px;
+    color: var(--color-secondary);
+    margin-bottom: 20px;
+}
+
+.service-card h3 {
+    font-size: 24px;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+.service-card p {
+    font-size: 16px;
+    color: var(--color-text);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+    }
+
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text, .hero-image {
+        padding: 0;
+        max-width: 100%;
+    }
+
+    .hero-text h1 {
+        font-size: 36px;
+    }
+
+    .hero-text p {
+        font-size: 16px;
+    }
+
+    .service-card {
+        flex: 1 1 calc(45% - 20px);
+        max-width: calc(45% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .service-card {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}
+:root {
+    --color-primary: #14213d;
+    --color-secondary: #fca311;
+    --color-light: #e5e5e5;
+    --color-dark: #000000;
+    --color-white: #ffffff;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--color-light);
+}
+
+/* Gallery Section Styles */
+.gallery {
+    background-color: var(--color-white);
+    padding: 60px 0;
+    text-align: center;
+}
+
+.gallery h2 {
+    font-size: 36px;
+    color: var(--color-primary);
+    margin-bottom: 40px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0;
+}
+
+.gallery-item {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+/* Mission and Why Choose Us Section Styles */
+.mission-why-choose-us {
+    background-color: var(--color-white);
+    padding: 60px 0;
+}
+
+.mission-why-choose-us .container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.mission-why-choose-us .mission, .mission-why-choose-us .why-choose-us {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.mission-why-choose-us .mission img {
+    max-width: 300px;  /* Set maximum width */
+    border-radius: 10px;
+    margin: 0 auto;  /* Center the image */
+    display: block;  /* Ensure margin auto centers the image */
+}
+
+.mission-why-choose-us .text {
+    flex: 1;
+}
+
+.mission-why-choose-us h2 {
+    font-size: 36px;
+    color: var(--color-primary);
+    margin-bottom: 20px;
+}
+
+.mission-why-choose-us p {
+    font-size: 16px;
+    color: var(--color-text);
+}
+
+.why-choose-us {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.why-choose-us-item {
+    display: flex;
+    gap: 20px;
+}
+
+.why-choose-us-item i {
+    font-size: 40px;
+    color: var(--color-secondary);
+}
+
+.why-choose-us-item .text {
+    flex: 1;
+}
+
+.why-choose-us-item h3 {
+    font-size: 24px;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+/* Join Us Section Styles */
+.join-us {
+    background-color: var(--color-background);
+    padding: 60px 0;
+    text-align: center;
+}
+
+.join-us h2 {
+    font-size: 36px;
+    color: var(--color-primary);
+    margin-bottom: 20px;
+}
+
+.join-us p {
+    font-size: 16px;
+    color: var(--color-text);
+    margin-bottom: 40px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .mission-why-choose-us .mission, .mission-why-choose-us .why-choose-us {
+        flex-direction: column;
+    }
+
+    .mission-why-choose-us .mission img, .mission-why-choose-us .why-choose-us-item i {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .why-choose-us-item {
+        flex-direction: column;
+    }
+}
