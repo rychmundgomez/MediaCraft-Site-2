@@ -15,144 +15,180 @@
       --white: #ffffff;
       --black: #000;
     }
+    html { scroll-behavior: smooth; }
+    body { margin:0; font-family:Arial,sans-serif; transition: background .3s,color .3s;
+           background:var(--bg-light); color:var(--black); }
+    body.dark-mode { background:var(--bg-dark); color:var(--white); }
+    .container { width:90%; max-width:1200px; margin:auto; padding:20px 0; }
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      transition: background 0.3s, color 0.3s;
-      background: var(--bg-light);
-      color: var(--black);
+    /* STICKY NAV */
+    header { position:sticky; top:0; z-index:1000; background:var(--white);
+      display:flex; justify-content:space-between; align-items:center;
+      padding:10px 5%; box-shadow:0 2px 4px rgba(0,0,0,.1); }
+    .logo img { height:40px; }
+    nav ul { display:flex; list-style:none; gap:20px; margin:0; padding:0; align-items:center; }
+    nav a { text-decoration:none; color:var(--primary); font-weight:bold; }
+    .btn { padding:10px 20px; background:var(--secondary); color:var(--white);
+           border:none; border-radius:5px; cursor:pointer; font-weight:bold;
+           transition:background .3s; }
+    .btn:hover { background:#e29400; }
+    .dark-toggle { cursor:pointer; font-size:1.2rem; color:var(--primary); }
+    body.dark-mode nav a, body.dark-mode header { color:var(--white); background:var(--bg-dark); }
+
+    /* HERO + PARALLAX */
+    .hero {
+      position:relative; padding:100px 0 60px; text-align:center;
+      background: url('https://i.ibb.co/bgFWjFtH/8-CCDB9-DA-703-B-486-A-9-EBB-8-DDB5-F2-E7-D4-A.png') center/cover fixed;
+      color:var(--white);
     }
-
-    body.dark-mode {
-      background: var(--bg-dark);
-      color: var(--white);
-    }
-
-    .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: auto;
-      padding: 20px 0;
-    }
-
-    header {
-      background: var(--white);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 5%;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .logo img {
-      height: 40px;
-    }
-
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 20px;
-      padding: 0;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: var(--primary);
-      font-weight: bold;
-    }
-
-    .btn {
-      padding: 10px 20px;
-      background: var(--secondary);
-      color: var(--white);
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .dark-toggle {
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: var(--primary);
-    }
-
+    .hero h1 { font-size:2.5rem; margin-bottom:10px; }
+    .hero p { font-size:1.125rem; margin-bottom:30px; }
     .hero-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 15px;
-      margin-top: 30px;
+      display:grid; grid-template-columns:repeat(2,1fr); gap:15px; max-width:600px; margin:auto;
+    }
+    .hero-grid img { width:100%; height:180px; object-fit:cover; border-radius:10px;
+      transition:transform .3s ease; }
+    .hero-grid img:hover { transform:scale(1.05); }
+
+    /* SECTIONS */
+    h1,h2,h3 { color:var(--primary); margin-bottom:15px; }
+    body.dark-mode h1,h2,h3 { color:var(--secondary); }
+    section { padding:60px 0; }
+    .services-grid, .gallery-grid, .choose-grid {
+      display:grid; gap:20px;
+    }
+    .services-grid { grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); }
+    .gallery-grid { grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); }
+    .choose-grid { grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); }
+    .card, .choose-item {
+      background:var(--bg-light); padding:20px; border-radius:10px;
+      text-align:center; transition:transform .3s ease;
+    }
+    .card:hover, .choose-item:hover { transform:translateY(-5px); }
+    .card i, .choose-item i { font-size:2rem; color:var(--secondary); margin-bottom:10px; }
+    .gallery-grid img { width:100%; height:160px; object-fit:cover; border-radius:8px;
+      transition:transform .3s; }
+    .gallery-grid img:hover { transform:scale(1.05); }
+    .join { text-align:center; padding-bottom:60px; }
+    footer { text-align:center; padding:20px; background:var(--white); font-size:0.9rem; }
+
+    /* MODAL */
+    .modal-bg { display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,.6); justify-content:center; align-items:center; }
+    .modal { background:var(--white); padding:30px; border-radius:8px; width:90%;
+      max-width:400px; text-align:left; position:relative; }
+    .modal h2 { margin-top:0; }
+    .modal input, .modal textarea {
+      width:100%; padding:10px; margin-bottom:15px; border:1px solid #ccc;
+      border-radius:5px; font-size:1rem;
+    }
+    .modal button { width:100%; }
+    .modal .close-btn {
+      position:absolute; top:10px; right:10px; background:none; border:none;
+      font-size:1.2rem; cursor:pointer; color:#aaa;
     }
 
-    .hero-grid img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-      border-radius: 12px;
-      transition: transform 0.3s ease;
-    }
-
-    .hero-grid img:hover {
-      transform: scale(1.05);
-    }
-
-    h1, h2, h3 {
-      color: var(--primary);
-      margin-bottom: 15px;
-    }
-
-    .dark-mode h1, .dark-mode h2, .dark-mode h3 {
-      color: var(--secondary);
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: var(--white);
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 768px) {
-      .hero-grid img {
-        height: 200px;
-      }
+    @media(max-width:600px){
+      .hero-grid { grid-template-columns:1fr; }
+      .hero-grid img { height:160px; }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="logo"><img src="https://i.ibb.co/KyT0MXz/1.png" alt="Logo"/></div>
-    <nav>
-      <ul>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#mission">Mission</a></li>
-        <li><span class="dark-toggle" onclick="toggleMode()">🌗</span></li>
-      </ul>
-    </nav>
+    <nav><ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#mission">Mission</a></li>
+      <li><a href="#join"><button class="btn">Contact Us</button></a></li>
+      <li><span class="dark-toggle" onclick="toggleMode()">🌓</span></li>
+    </ul></nav>
   </header>
 
-  <!-- NEW HERO SECTION WITH 4 IMAGES -->
-  <section class="hero container" data-aos="fade-up">
-    <h1>Welcome to MediaCraft Hub</h1>
-    <div class="hero-grid">
-      <img src="https://i.ibb.co/JWX02pbT/A8297637-3-A58-4759-B212-EB9-E539-D0-E58.png" alt="Hero 1"/>
-      <img src="https://i.ibb.co/5W0Fk6zK/8-AD61-AE4-4517-4146-BB8-E-503602-E29864.png" alt="Hero 2"/>
-      <img src="https://i.ibb.co/bgFWjFtH/8-CCDB9-DA-703-B-486-A-9-EBB-8-DDB5-F2-E7-D4-A.png" alt="Hero 3"/>
-      <img src="https://i.ibb.co/xqNDKTNT/DAC673-D1-723-F-4-CED-8-F41-66-F385-CD86-BC.png" alt="Hero 4"/>
+  <section class="hero" data-aos="fade-up">
+    <div class="container">
+      <h1>MediaCraft Hub</h1>
+      <p>Innovative digital solutions for modern businesses.</p>
+      <div class="hero-grid">
+        <img src="https://i.ibb.co/JWX02pbT/A8297637-3-A58-4759-B212-EB9-E539-D0-E58.png" alt="Grid1">
+        <img src="https://i.ibb.co/5W0Fk6zK/8-AD61-AE4-4517-4146-BB8-E-503602-E29864.png" alt="Grid2">
+        <img src="https://i.ibb.co/bgFWjFtH/8-CCDB9-DA-703-B-486-A-9-EBB-8-DDB5-F2-E7-D4-A.png" alt="Grid3">
+        <img src="https://i.ibb.co/xqNDKTNT/DAC673-D1-723-F-4-CED-8-F41-66-F385-CD86-BC.png" alt="Grid4">
+      </div>
     </div>
+  </section>
+
+  <section id="services" class="container" data-aos="fade-right">
+    <h2>Our Services</h2>
+    <div class="services-grid">
+      <div class="card"><i class="fas fa-paint-brush"></i><h3>Design</h3><p>Creative branding & visuals</p></div>
+      <div class="card"><i class="fas fa-video"></i><h3>Video</h3><p>Production and editing</p></div>
+      <div class="card"><i class="fas fa-music"></i><h3>Music</h3><p>Original tracks & mastering</p></div>
+      <div class="card"><i class="fas fa-bullhorn"></i><h3>Marketing</h3><p>Social media and SEO</p></div>
+    </div>
+  </section>
+
+  <section id="gallery" class="container" data-aos="zoom-in">
+    <h2>Gallery</h2>
+    <div class="gallery-grid">
+      <img src="https://i.ibb.co/VjQVcVj/pexels-3motional-studio-407102-1081685.jpg" alt="">
+      <img src="https://i.ibb.co/FmJFNyG/pexels-alexfu-1188751.jpg" alt="">
+      <img src="https://i.ibb.co/6F2zMDC/pexels-chuck-3587478.jpg" alt="">
+      <img src="https://i.ibb.co/qpHtvcr/pexels-joshsorenson-1714202.jpg" alt="">
+    </div>
+  </section>
+
+  <section id="mission" class="container mission" data-aos="fade-left">
+    <h2>Our Mission</h2>
+    <p>Empowering clients through creative and impactful digital solutions.</p>
+  </section>
+
+  <section class="container why-choose-us" data-aos="fade-up">
+    <h2>Why Choose Us</h2>
+    <div class="choose-grid">
+      <div class="choose-item"><i class="fas fa-award"></i><h3>Expertise</h3><p>Industry professionals</p></div>
+      <div class="choose-item"><i class="fas fa-lightbulb"></i><h3>Innovation</h3><p>Cutting-edge solutions</p></div>
+      <div class="choose-item"><i class="fas fa-users"></i><h3>Clients First</h3><p>Customer satisfaction</p></div>
+      <div class="choose-item"><i class="fas fa-check-circle"></i><h3>Quality</h3><p>Premium delivery</p></div>
+    </div>
+  </section>
+
+  <section id="join" class="join container" data-aos="zoom-in-up">
+    <h2>Get In Touch</h2>
+    <p>Let’s create something extraordinary together. Fill out the form to reach us!</p>
+    <button class="btn" onclick="openModal()">Contact Us</button>
   </section>
 
   <footer>
     <p>&copy; 2025 MediaCraft Hub. All rights reserved.</p>
   </footer>
 
+  <!-- MODAL -->
+  <div class="modal-bg" id="modalBg">
+    <div class="modal" data-aos="fade-down">
+      <button class="close-btn" onclick="closeModal()">✕</button>
+      <h2>Contact Us</h2>
+      <input type="text" placeholder="Your Name" />
+      <input type="email" placeholder="Your Email" />
+      <textarea rows="4" placeholder="Your Message"></textarea>
+      <button class="btn">Send Message</button>
+    </div>
+  </div>
+
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    AOS.init();
+    AOS.init({ once: true });
+
     function toggleMode() {
       document.body.classList.toggle("dark-mode");
+    }
+
+    function openModal() {
+      document.getElementById("modalBg").style.display = "flex";
+    }
+    function closeModal() {
+      document.getElementById("modalBg").style.display = "none";
     }
   </script>
 </body>
