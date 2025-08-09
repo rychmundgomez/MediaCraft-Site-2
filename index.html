@@ -1,32 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Meta & Title -->
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MediaCraft</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediaCraft | Build • Brand • Engage</title>
+
+  <!-- External Styles & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+
+  <!-- Custom Styles -->
   <style>
+    /* =========================
+       Root Variables
+    ========================== */
     :root {
       --primary: #14213d;
       --secondary: #fca311;
       --bg-light: #e5e5e5;
       --bg-dark: #1a1a1a;
       --white: #ffffff;
-      --black: #000;
+      --black: #000000;
+      --transition: 0.3s ease;
     }
 
+    /* =========================
+       Global Styles
+    ========================== */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      transition: background 0.3s, color 0.3s;
       background: var(--bg-light);
       color: var(--black);
+      transition: background var(--transition), color var(--transition);
     }
 
     body.dark-mode {
       background: var(--bg-dark);
       color: var(--white);
+    }
+
+    h1, h2, h3 {
+      color: var(--primary);
+      margin-top: 0;
+    }
+
+    body.dark-mode h1, 
+    body.dark-mode h2, 
+    body.dark-mode h3 {
+      color: var(--secondary);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
     }
 
     .container {
@@ -36,76 +69,98 @@
       padding: 20px 0;
     }
 
-    h1, h2, h3 {
-      color: var(--primary);
-    }
-
-    .dark-mode h1, .dark-mode h2, .dark-mode h3 {
-      color: var(--secondary);
-    }
-
+    /* =========================
+       Header & Navigation
+    ========================== */
     header {
       background: var(--white);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 10px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 5%;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       flex-wrap: wrap;
-    }
-
-    .logo img {
-      height: 40px;
     }
 
     nav ul {
       display: flex;
-      list-style: none;
       gap: 20px;
+      list-style: none;
       padding: 0;
       margin: 0;
       align-items: center;
+      flex-wrap: wrap;
     }
 
     nav a {
-      text-decoration: none;
       color: var(--primary);
       font-weight: bold;
+      transition: color var(--transition);
     }
 
+    nav a:hover {
+      color: var(--secondary);
+    }
+
+    /* =========================
+       Buttons
+    ========================== */
     .btn {
+      display: inline-block;
       padding: 10px 20px;
       background: var(--secondary);
       color: var(--white);
       border: none;
       border-radius: 5px;
-      cursor: pointer;
       font-weight: bold;
-      text-decoration: none;
+      cursor: pointer;
+      transition: background var(--transition);
     }
 
+    .btn:hover {
+      background: #e69300;
+    }
+
+    /* =========================
+       Hero Section
+    ========================== */
     .hero {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
+      gap: 20px;
       padding: 60px 0;
-    }
-
-    .hero-image img {
-      width: 300px;
-      border-radius: 12px;
     }
 
     .hero-text {
       flex: 1;
-      padding-right: 20px;
     }
 
-    .services-grid, .gallery-grid {
+    .hero-image img {
+      border-radius: 12px;
+      width: 300px;
+    }
+
+    /* =========================
+       Cards & Grids
+    ========================== */
+    .services-grid, 
+    .gallery-grid, 
+    .choose-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
-      margin-top: 30px;
+    }
+
+    .services-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .gallery-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .choose-grid {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     }
 
     .card, .choose-item {
@@ -113,7 +168,7 @@
       padding: 20px;
       border-radius: 10px;
       text-align: center;
-      transition: transform 0.3s ease;
+      transition: transform var(--transition);
     }
 
     .card:hover, .choose-item:hover {
@@ -127,76 +182,59 @@
     }
 
     .gallery-grid img {
-      width: 100%;
       height: 160px;
       object-fit: cover;
-      transition: transform 0.3s;
       border-radius: 8px;
+      transition: transform var(--transition);
     }
 
     .gallery-grid img:hover {
       transform: scale(1.05);
     }
 
+    /* =========================
+       Sections
+    ========================== */
     .mission, .why-choose-us {
       margin-top: 60px;
     }
 
-    .choose-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-    }
-
-    .Contact {
+    .contact-section {
       text-align: center;
       padding: 60px 20px;
     }
 
-    #contact {
-      margin-bottom: 30px;
-    }
-
+    /* =========================
+       Footer
+    ========================== */
     footer {
       text-align: center;
       padding: 20px;
       background: var(--white);
       font-size: 0.9rem;
+      transition: color var(--transition);
     }
 
-    .dark-toggle {
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: var(--primary);
-    }
-
-    body.dark-mode nav a, body.dark-mode footer {
+    /* Dark Mode Overrides */
+    body.dark-mode nav a,
+    body.dark-mode footer {
       color: var(--white);
     }
 
+    /* =========================
+       Responsive
+    ========================== */
     @media (max-width: 768px) {
       .hero {
         flex-direction: column;
         text-align: center;
       }
-      .hero-image {
-        margin-top: 20px;
-      }
-
-      nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      header {
-        text-align: center;
-        flex-direction: column;
-        gap: 10px;
-      }
     }
   </style>
 </head>
+
 <body>
+  <!-- ===== Header ===== -->
   <header>
     <nav>
       <ul>
@@ -204,75 +242,86 @@
         <li><a href="#gallery">Gallery</a></li>
         <li><a href="#mission">Mission</a></li>
         <li>
-          <a href="https://wa.me/233540281796" target="_blank" rel="noopener noreferrer">
-            <button class="btn">Contact Us</button>
+          <a href="https://wa.me/233540281796" target="_blank" rel="noopener noreferrer" class="btn">
+            Contact Us
           </a>
         </li>
-        <li><span class="dark-toggle" onclick="toggleMode()">🌗</span></li>
+        <li>
+          <button class="dark-toggle" onclick="toggleMode()" aria-label="Toggle Dark Mode">🌗</button>
+        </li>
       </ul>
     </nav>
   </header>
 
+  <!-- ===== Hero Section ===== -->
   <section class="hero container" data-aos="fade-up">
     <div class="hero-text">
       <h1>MediaCraft</h1>
       <p>Your Digital Command Center for Creative Excellence.</p>
     </div>
-    <div class="hero-image"><img src="https://i.ibb.co/shRNnZW/7-D218-D48-FB7-E-4275-B4-E2-A647-CBD9-B3-BB.png" alt=""/></div>
+    <div class="hero-image">
+      <img src="https://i.ibb.co/shRNnZW/7-D218-D48-FB7-E-4275-B4-E2-A647-CBD9-B3-BB.png" alt="MediaCraft Logo" />
+    </div>
   </section>
 
+  <!-- ===== Services ===== -->
   <section id="services" class="container" data-aos="fade-right">
     <h2>Our Services</h2>
     <div class="services-grid">
       <div class="card"><i class="fas fa-paint-brush"></i><h3>Graphic & Brand Designing</h3><p>Logos, branding, and visual assets crafted to make an impact.</p></div>
-      <div class="card"><i class="fas fa-video"></i><h3>Video and Effects Editing</h3><p> Producing compelling visuals that speaks to your audience.</p></div>
+      <div class="card"><i class="fas fa-video"></i><h3>Video & Effects Editing</h3><p>Producing compelling visuals that speak to your audience.</p></div>
       <div class="card"><i class="fas fa-music"></i><h3>Music & Audio Editing</h3><p>High-quality music production and sound engineering.</p></div>
       <div class="card"><i class="fas fa-code"></i><h3>Web & App Development</h3><p>Custom websites, apps, and platforms built by expert developers.</p></div>
       <div class="card"><i class="fas fa-bullhorn"></i><h3>Digital Marketing</h3><p>Targeted strategies for growth, visibility, and engagement.</p></div>
     </div>
   </section>
 
+  <!-- ===== Gallery ===== -->
   <section id="gallery" class="container" data-aos="zoom-in">
     <h2>Gallery</h2>
     <div class="gallery-grid">
-      <img src="https://i.ibb.co/VjQVcVj/pexels-3motional-studio-407102-1081685.jpg" alt=""/>
-      <img src="https://i.ibb.co/FmJFNyG/pexels-alexfu-1188751.jpg" alt=""/>
-      <img src="https://i.ibb.co/6F2zMDC/pexels-chuck-3587478.jpg" alt=""/>
-      <img src="https://i.ibb.co/qpHtvcr/pexels-joshsorenson-1714202.jpg" alt=""/>
+      <img src="https://i.ibb.co/VjQVcVj/pexels-3motional-studio-407102-1081685.jpg" alt="Creative Work Sample" />
+      <img src="https://i.ibb.co/FmJFNyG/pexels-alexfu-1188751.jpg" alt="Design Project" />
+      <img src="https://i.ibb.co/6F2zMDC/pexels-chuck-3587478.jpg" alt="Editing Showcase" />
+      <img src="https://i.ibb.co/qpHtvcr/pexels-joshsorenson-1714202.jpg" alt="Music Studio" />
     </div>
   </section>
 
+  <!-- ===== Mission ===== -->
   <section id="mission" class="container mission" data-aos="fade-left">
     <h2>What is MediaCraft?</h2>
-    <p>MediaCraft is a creative services agency that connects clients to top-tier professionals across multiple digital domains. Unlike freelancer marketplaces, we manage the entire workflow from onboarding to delivery, ensuring high-quality outcomes without hassle.</p>
+    <p>MediaCraft is a creative services agency that connects clients to top-tier professionals across multiple digital domains. We manage the entire workflow from onboarding to delivery, ensuring high-quality outcomes without hassle.</p>
   </section>
 
+  <!-- ===== How We Work ===== -->
   <section class="container why-choose-us" data-aos="fade-up">
-    <h2>How we Work</h2>
+    <h2>How We Work</h2>
     <div class="choose-grid">
-      <div class="choose-item"><i class="fas fa-user-plus"></i><div><h3>Onboard</h3><p>We gather your goals, requirements, and vision.</p></div></div>
-      <div class="choose-item"><i class="fas fa-tasks"></i><div><h3>Assign</h3><p>We select the perfect professional from our network.</p></div></div>
-      <div class="choose-item"><i class="fas fa-clipboard-check"></i><div><h3>Manage & Review</h3><p>We oversee project execution and quality control.</p></div></div>
-      <div class="choose-item"><i class="fas fa-paper-plane"></i><div><h3>Deliver</h3><p>You receive polished, high-quality deliverables.</p></div></div>
+      <div class="choose-item"><i class="fas fa-user-plus"></i><h3>Onboard</h3><p>We gather your goals, requirements, and vision.</p></div>
+      <div class="choose-item"><i class="fas fa-tasks"></i><h3>Assign</h3><p>We select the perfect professional from our network.</p></div>
+      <div class="choose-item"><i class="fas fa-clipboard-check"></i><h3>Manage & Review</h3><p>We oversee project execution and quality control.</p></div>
+      <div class="choose-item"><i class="fas fa-paper-plane"></i><h3>Deliver</h3><p>You receive polished, high-quality deliverables.</p></div>
     </div>
   </section>
 
-  <section class="section" id="contact" style="text-align: center;" data-aos="fade-in">
+  <!-- ===== Contact ===== -->
+  <section id="contact" class="contact-section" data-aos="fade-in">
     <h2>Ready to Begin?</h2>
     <p>Get in touch and let’s bring your vision to life with MediaCraft.</p>
-    <a href="https://wa.me/233540281796" class="btn" target="_blank" rel="noopener noreferrer">
-      Contact Us
-    </a>
+    <a href="https://wa.me/233540281796" class="btn" target="_blank" rel="noopener noreferrer">Contact Us</a>
   </section>
 
+  <!-- ===== Footer ===== -->
   <footer>
     <p>&copy; 2025 MediaCraft Hub. All rights reserved.</p>
   </footer>
 
+  <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init();
 
+    // Toggle Dark/Light Mode
     function toggleMode() {
       document.body.classList.toggle("dark-mode");
     }
