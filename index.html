@@ -79,11 +79,35 @@
     }
     .ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.06)}
 
-    /* Small-screen collapsible menu (no JS required for open/close) */
+    /* Menu toggle + panel styles (fixed/mobile friendly) */
     .menu-toggle{position:relative}
     .menu-toggle input{position:absolute;opacity:0;width:1px;height:1px;left:-9999px}
+    /* Mobile menu panel: hidden by height until checkbox is checked */
     .menu-panel{
-      display:flex;flex-direction:row;gap:10px;align-items:center;overflow:hidden;transition:height 300ms var(--ease);
+      position:absolute;
+      right:10px;
+      top:58px;
+      background:var(--glass);
+      padding:10px;
+      border-radius:10px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      width:220px;
+      height:0;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,0.6);
+      transition:height 280ms var(--ease),opacity 240ms var(--ease);
+      opacity:0;
+      z-index:50;
+    }
+    .menu-panel a{color:#fff;text-decoration:none;padding:8px;border-radius:8px;font-weight:600}
+    /* Reveal when checkbox checked (sibling selector) */
+    #menuChk:checked ~ .menu-panel{height:164px;opacity:1}
+    /* Desktop: show inline menu and hide checkbox */
+    @media(min-width:720px){
+      .menu-panel{position:static;height:auto;opacity:1;flex-direction:row;width:auto;background:transparent;padding:0;box-shadow:none}
+      .menu-toggle input{display:none}
     }
 
     /* ==========================
@@ -127,7 +151,15 @@
        -------------------------- */
     .mosaic-wrap{column-count:1;column-gap:12px}
     .mosaic-card{break-inside:avoid;margin:0 0 12px;border-radius:12px;overflow:hidden;position:relative;background:#0b1b22;border:1px solid rgba(255,255,255,0.03)}
-    .mosaic-card img{width:100%;display:block;height:auto;aspect-ratio:16/10;object-fit:cover;vertical-align:top}
+    .mosaic-card img{
+      width:100%;
+      max-width:100%;
+      height:auto !important;
+      aspect-ratio: auto !important;
+      display:block;
+      object-fit:cover;
+      vertical-align:top;
+    }
     .mosaic-meta{padding:12px}
     .mosaic-meta h5{margin:0 0 6px 0;color:var(--primary)}
     .mosaic-meta p{margin:0;color:var(--muted)}
@@ -203,13 +235,20 @@
       </a>
 
       <div class="nav-actions" role="group" aria-label="Primary actions">
-        <!-- keyboard-friendly 'Hire' opens modal via JS -->
         <button class="btn" id="hireBtn">Hire a Creator</button>
         <button class="btn ghost" id="portfolioBtn">Portfolio</button>
-        <!-- non-descriptive toggle used to meet mystery rules (hidden info not exposed) -->
-        <div class="menu-toggle" aria-hidden="true">
-          <input id="menuChk" type="checkbox" aria-hidden="true" />
-          <label for="menuChk" class="btn ghost" aria-hidden="true">Menu</label>
+
+        <div class="menu-toggle" aria-hidden="false">
+          <input id="menuChk" type="checkbox" aria-label="Toggle main menu" />
+          <label for="menuChk" class="btn ghost" id="menuLabel" aria-expanded="false">Menu</label>
+
+          <!-- Mobile menu panel (hidden by default, revealed when checkbox is checked) -->
+          <nav id="mobileMenu" class="menu-panel" aria-hidden="true" aria-label="Mobile menu">
+            <a href="#home">Home</a>
+            <a href="#works">Portfolio</a>
+            <a href="#how">How We Work</a>
+            <a href="#contactTitle">Contact</a>
+          </nav>
         </div>
       </div>
     </nav>
@@ -425,7 +464,7 @@
       let i = 0, j = 0, forward = true;
       function tick(){
         const w = words[i];
-        el.textContent = w.slice(0,j) + (j % 2 === 0 ? ' ' : '\u258F');
+        el.textContent = w.slice(0,j) + (j % 2 === 0 ? ' ' : '▏');
         if(forward){ j++; if(j > w.length){ forward = false; setTimeout(tick, 900); return } }
         else { j--; if(j === 0){ forward = true; i = (i+1) % words.length } }
         setTimeout(tick, forward ? 90 : 30);
@@ -433,12 +472,17 @@
       tick();
     })();
 
-    // ===== Dialog controls =====
+    // ===== Dialog controls, portfolio link, and mobile menu accessibility =====
     (function(){
       const modal = document.getElementById('hireModal');
       const open = document.getElementById('hireBtn');
       const close = document.getElementById('closeHire');
+      const portfolioBtn = document.getElementById('portfolioBtn');
+      const menuChk = document.getElementById('menuChk');
+      const menuLabel = document.getElementById('menuLabel');
+      const mobileMenu = document.getElementById('mobileMenu');
 
+      // Open modal (accessible)
       open.addEventListener('click', ()=>{
         if(typeof modal.showModal === 'function'){
           modal.showModal();
@@ -447,8 +491,50 @@
           location.href = 'mailto:hello@mediacraft.example';
         }
       });
+
       close.addEventListener('click', ()=> modal.close());
       modal.addEventListener('cancel', ()=> modal.close());
+
+      // Portfolio button: smooth-scroll to portfolio and focus for a11y
+      if(portfolioBtn){
+        portfolioBtn.addEventListener('click', (e)=>{
+          e.preventDefault();
+          const target = document.getElementById('works');
+          if(target){
+            target.setAttribute('tabindex','-1');
+            target.scrollIntoView({behavior:'smooth',block:'start'});
+            setTimeout(()=>{ target.focus(); }, 450);
+          }
+          // close mobile menu if open
+          if(menuChk && menuChk.checked){ menuChk.checked = false; syncMenu && syncMenu(); }
+        });
+      }
+
+      // Sync menu ARIA attributes for screen readers
+      function syncMenu(){
+        if(!menuChk || !menuLabel || !mobileMenu) return;
+        const expanded = !!menuChk.checked;
+        menuLabel.setAttribute('aria-expanded', String(expanded));
+        mobileMenu.setAttribute('aria-hidden', String(!expanded));
+      }
+      if(menuChk){ menuChk.addEventListener('change', syncMenu); syncMenu(); }
+
+      // Close menu when clicking a link inside it (mobile)
+      if(mobileMenu){
+        mobileMenu.addEventListener('click', (ev)=>{
+          if(ev.target && ev.target.matches && ev.target.matches('a')){
+            if(menuChk){ menuChk.checked = false; syncMenu(); }
+          }
+        });
+      }
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (ev)=>{
+        const toggle = document.querySelector('.menu-toggle');
+        if(menuChk && menuChk.checked && toggle && !toggle.contains(ev.target)){
+          menuChk.checked = false; syncMenu();
+        }
+      }, {capture:false});
     })();
 
     // ===== Services carousel: keyboard navigation (left/right) =====
