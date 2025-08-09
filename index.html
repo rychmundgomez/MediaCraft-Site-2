@@ -12,9 +12,6 @@
 
   <!-- Custom Styles -->
   <style>
-    /* =========================
-       Root Variables
-    ========================== */
     :root {
       --primary: #14213d;
       --secondary: #fca311;
@@ -25,9 +22,6 @@
       --transition: 0.3s ease;
     }
 
-    /* =========================
-       Global Styles
-    ========================== */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -35,7 +29,6 @@
       color: var(--black);
       transition: background var(--transition), color var(--transition);
     }
-
     body.dark-mode {
       background: var(--bg-dark);
       color: var(--white);
@@ -45,7 +38,6 @@
       color: var(--primary);
       margin-top: 0;
     }
-
     body.dark-mode h1, 
     body.dark-mode h2, 
     body.dark-mode h3 {
@@ -56,12 +48,10 @@
       text-decoration: none;
       color: inherit;
     }
-
     img {
       max-width: 100%;
       display: block;
     }
-
     .container {
       width: 90%;
       max-width: 1200px;
@@ -69,9 +59,6 @@
       padding: 20px 0;
     }
 
-    /* =========================
-       Header & Navigation
-    ========================== */
     header {
       background: var(--white);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -80,6 +67,10 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
+      transition: background var(--transition);
+    }
+    body.dark-mode header {
+      background: var(--primary);
     }
 
     nav ul {
@@ -91,20 +82,21 @@
       align-items: center;
       flex-wrap: wrap;
     }
-
     nav a {
       color: var(--primary);
       font-weight: bold;
       transition: color var(--transition);
     }
-
     nav a:hover {
       color: var(--secondary);
     }
+    body.dark-mode nav a {
+      color: var(--white);
+    }
+    body.dark-mode nav a:hover {
+      color: var(--secondary);
+    }
 
-    /* =========================
-       Buttons
-    ========================== */
     .btn {
       display: inline-block;
       padding: 10px 20px;
@@ -116,14 +108,10 @@
       cursor: pointer;
       transition: background var(--transition);
     }
-
     .btn:hover {
       background: #e69300;
     }
 
-    /* =========================
-       Hero Section
-    ========================== */
     .hero {
       display: flex;
       flex-wrap: wrap;
@@ -131,34 +119,23 @@
       gap: 20px;
       padding: 60px 0;
     }
-
-    .hero-text {
-      flex: 1;
-    }
-
     .hero-image img {
       border-radius: 12px;
       width: 300px;
     }
 
-    /* =========================
-       Cards & Grids
-    ========================== */
     .services-grid, 
     .gallery-grid, 
     .choose-grid {
       display: grid;
       gap: 20px;
     }
-
     .services-grid {
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     }
-
     .gallery-grid {
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
-
     .choose-grid {
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     }
@@ -168,13 +145,16 @@
       padding: 20px;
       border-radius: 10px;
       text-align: center;
-      transition: transform var(--transition);
+      transition: transform var(--transition), background var(--transition), color var(--transition);
     }
-
+    body.dark-mode .card, 
+    body.dark-mode .choose-item {
+      background: #2a2a2a;
+      color: var(--white);
+    }
     .card:hover, .choose-item:hover {
       transform: translateY(-5px);
     }
-
     .card i, .choose-item i {
       font-size: 2rem;
       color: var(--secondary);
@@ -187,43 +167,30 @@
       border-radius: 8px;
       transition: transform var(--transition);
     }
-
     .gallery-grid img:hover {
       transform: scale(1.05);
     }
 
-    /* =========================
-       Sections
-    ========================== */
     .mission, .why-choose-us {
       margin-top: 60px;
     }
-
     .contact-section {
       text-align: center;
       padding: 60px 20px;
     }
 
-    /* =========================
-       Footer
-    ========================== */
     footer {
       text-align: center;
       padding: 20px;
       background: var(--white);
       font-size: 0.9rem;
-      transition: color var(--transition);
+      transition: background var(--transition), color var(--transition);
     }
-
-    /* Dark Mode Overrides */
-    body.dark-mode nav a,
     body.dark-mode footer {
+      background: var(--primary);
       color: var(--white);
     }
 
-    /* =========================
-       Responsive
-    ========================== */
     @media (max-width: 768px) {
       .hero {
         flex-direction: column;
@@ -234,7 +201,6 @@
 </head>
 
 <body>
-  <!-- ===== Header ===== -->
   <header>
     <nav>
       <ul>
@@ -247,13 +213,12 @@
           </a>
         </li>
         <li>
-          <button class="dark-toggle" onclick="toggleMode()" aria-label="Toggle Dark Mode">🌗</button>
+          <button class="btn" style="padding:5px 10px" onclick="toggleMode()" aria-label="Toggle Dark Mode">🌗</button>
         </li>
       </ul>
     </nav>
   </header>
 
-  <!-- ===== Hero Section ===== -->
   <section class="hero container" data-aos="fade-up">
     <div class="hero-text">
       <h1>MediaCraft</h1>
@@ -264,7 +229,6 @@
     </div>
   </section>
 
-  <!-- ===== Services ===== -->
   <section id="services" class="container" data-aos="fade-right">
     <h2>Our Services</h2>
     <div class="services-grid">
@@ -276,7 +240,6 @@
     </div>
   </section>
 
-  <!-- ===== Gallery ===== -->
   <section id="gallery" class="container" data-aos="zoom-in">
     <h2>Gallery</h2>
     <div class="gallery-grid">
@@ -287,13 +250,11 @@
     </div>
   </section>
 
-  <!-- ===== Mission ===== -->
   <section id="mission" class="container mission" data-aos="fade-left">
     <h2>What is MediaCraft?</h2>
     <p>MediaCraft is a creative services agency that connects clients to top-tier professionals across multiple digital domains. We manage the entire workflow from onboarding to delivery, ensuring high-quality outcomes without hassle.</p>
   </section>
 
-  <!-- ===== How We Work ===== -->
   <section class="container why-choose-us" data-aos="fade-up">
     <h2>How We Work</h2>
     <div class="choose-grid">
@@ -304,24 +265,19 @@
     </div>
   </section>
 
-  <!-- ===== Contact ===== -->
   <section id="contact" class="contact-section" data-aos="fade-in">
     <h2>Ready to Begin?</h2>
     <p>Get in touch and let’s bring your vision to life with MediaCraft.</p>
     <a href="https://wa.me/233540281796" class="btn" target="_blank" rel="noopener noreferrer">Contact Us</a>
   </section>
 
-  <!-- ===== Footer ===== -->
   <footer>
     <p>&copy; 2025 MediaCraft Hub. All rights reserved.</p>
   </footer>
 
-  <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init();
-
-    // Toggle Dark/Light Mode
     function toggleMode() {
       document.body.classList.toggle("dark-mode");
     }
