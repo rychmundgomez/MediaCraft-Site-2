@@ -1,104 +1,596 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio Site</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MediaCraft — New Chapter</title>
+
+  <!-- New fonts: Poppins (clean geometric) + Playfair Display (elegant serif) -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- Favicon (inline SVG to avoid external assets) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23345b63'/%3E%3Ctext x='50' y='58' font-size='48' text-anchor='middle' fill='%23fff' font-family='Poppins,Arial' font-weight='700'%3EM%3C/text%3E%3C/svg%3E">
+
+  <meta name="description" content="MediaCraft — crafted design, film, audio and product experiences. Reimagined single-page UI." />
+
   <style>
-    body {
-      max-width: 1440px;
-      margin: 0 auto;
-      font-family: Arial, sans-serif;
+    /* ==========================
+       New design variables & palette
+       (4–6 colors — entirely new)
+       ========================== */
+    :root{
+      --bg-1: #0f1720;            /* rich charcoal */
+      --bg-2: #071027;            /* deep ink */
+      --primary: #ffb703;         /* warm amber */
+      --accent: #00b4d8;          /* bright cyan */
+      --muted: #9aa7b2;           /* soft neutral */
+      --glass: rgba(255,255,255,0.04);
+      --radius: 16px;
+      --gap: 18px;
+      --ease: cubic-bezier(.2,.9,.25,1);
+      --max-width: 1200px;
     }
-    nav {
-      background: #222;
-      color: #fff;
-      padding: 1rem;
-      position: relative;
+
+    /* ==========================
+       Reset + base (mobile-first)
+       ========================== */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Poppins',system-ui,-apple-system,'Segoe UI',Roboto,Arial;
+      color:var(--muted);
+      background: linear-gradient(180deg,var(--bg-1) 0%, var(--bg-2) 60%);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:16px;
+      overflow-y:scroll;
     }
-    #menu-toggle {
-      background: none;
-      border: 1px solid #fff;
-      padding: 0.5rem 1rem;
-      color: #fff;
-      cursor: pointer;
+
+    /* Container */
+    .shell{
+      max-width:var(--max-width);
+      margin:0 auto;
+      display:flex;
+      flex-direction:column;
+      gap:24px;
     }
-    .menu-panel {
-      transform: translateY(-100%);
-      transition: transform 0.3s ease, opacity 0.3s ease;
-      opacity: 0;
-      background: #333;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      display: flex;
-      flex-direction: column;
+
+    /* --------------------------
+       Top navigation (compact, accessible)
+       -------------------------- */
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      padding:10px;border-radius:12px;backdrop-filter:blur(6px);
     }
-    .menu-panel a {
-      padding: 1rem;
-      text-decoration: none;
-      color: #fff;
-      border-bottom: 1px solid #444;
+    .brand{
+      display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--primary);
     }
-    .menu-panel.open {
-      transform: translateY(0);
-      opacity: 1;
+    .brand-mark{width:48px;height:48px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#0af);color:#02111a;font-weight:900;font-size:1.05rem}
+    .brand-name{font-weight:700;color:#fff}
+    .brand-tag{font-family:'Playfair Display',serif;color:var(--muted);font-style:italic;font-size:0.85rem}
+
+    .nav-actions{display:flex;gap:10px;align-items:center}
+    .btn{
+      border:0;padding:10px 14px;border-radius:10px;background:var(--primary);color:#071027;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,0.4);
     }
-    .portfolio {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      padding: 1rem;
+    .ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.06)}
+
+    /* Menu toggle + panel styles */
+    .menu-toggle{position:relative}
+    .menu-toggle input{position:absolute;opacity:0;width:1px;height:1px;left:-9999px}
+    .menu-panel{
+      position:absolute;
+      right:10px;
+      top:58px;
+      background:var(--glass);
+      padding:10px;
+      border-radius:10px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      width:220px;
+      height:0;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,0.6);
+      transition:height 280ms var(--ease),opacity 240ms var(--ease),transform 260ms var(--ease);
+      opacity:0;
+      transform:translateY(-6px);
+      z-index:50;
     }
-    @media(min-width: 481px) {
-      .portfolio { grid-template-columns: repeat(2, 1fr); }
+    .menu-panel a{color:#fff;text-decoration:none;padding:8px;border-radius:8px;font-weight:600}
+    #menuChk:checked ~ .menu-panel{height:164px;opacity:1;transform:none}
+    @media(min-width:720px){
+      .menu-panel{position:static;height:auto;opacity:1;flex-direction:row;width:auto;background:transparent;padding:0;box-shadow:none;transform:none}
+      .menu-toggle input{display:none}
     }
-    @media(min-width: 720px) {
-      .portfolio { grid-template-columns: repeat(3, 1fr); }
+
+    /* ==========================
+       Hero: two-column folding card
+       ========================== */
+    .hero{
+      display:flex;flex-direction:column;gap:14px;padding:18px;border-radius:16px;background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      position:relative;overflow:clip;border:1px solid rgba(255,255,255,0.03);
     }
-    .portfolio img {
-      width: 100%;
-      height: auto;
-      display: block;
+    .hero-grid{display:flex;flex-direction:column;gap:12px}
+    .kicker{font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;font-size:0.78rem}
+    h1.title{margin:0;font-family:'Playfair Display',serif;color:#fff;font-weight:700;font-size:clamp(1.35rem,3vw,2.4rem);line-height:1.05}
+    p.lead{margin:0;color:var(--muted);max-width:60ch}
+
+    /* Visual stage */
+    .visual-stage{position:relative;height:220px;border-radius:12px;overflow:hidden;display:block}
+    .layer{
+      position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;transition:transform 700ms var(--ease);
+    }
+    .card-visual{width:86%;max-width:520px;padding:18px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.08));box-shadow:0 20px 60px rgba(0,0,0,0.6);color:#fff}
+    .card-visual h3{margin:0 0 6px 0}
+    .card-visual p{margin:0;color:var(--muted)}
+
+    /* --------------------------
+       Services carousel
+       -------------------------- */
+    .services{
+      display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory
+    }
+    .svc{min-width:260px;flex:0 0 auto;background:linear-gradient(90deg,rgba(0,180,216,0.06),rgba(255,183,3,0.02));border-radius:12px;padding:14px;color:#fff;scroll-snap-align:center}
+    .svc h4{margin:0 0 8px 0}
+    .svc p{margin:0;color:var(--muted)}
+
+    /* --------------------------
+       Portfolio masonry (CSS columns)
+       -------------------------- */
+    .mosaic-wrap{column-count:1;column-gap:12px}
+    .mosaic-card{break-inside:avoid;margin:0 0 12px;border-radius:12px;overflow:hidden;position:relative;background:#0b1b22;border:1px solid rgba(255,255,255,0.03)}
+    .mosaic-card img{width:100%;display:block;height:auto;aspect-ratio:16/10;object-fit:cover;vertical-align:top}
+    .mosaic-meta{padding:12px}
+    .mosaic-meta h5{margin:0 0 6px 0;color:var(--primary)}
+    .mosaic-meta p{margin:0;color:var(--muted)}
+
+    /* Timeline */
+    .timeline{display:flex;flex-direction:column;gap:10px}
+    .tl-item{display:flex;gap:12px;align-items:flex-start}
+    .tl-bullet{width:14px;height:14px;border-radius:50%;background:var(--accent);flex:0 0 14px;margin-top:6px}
+    .tl-body h6{margin:0;font-weight:700;color:#fff}
+    .tl-body p{margin:6px 0 0 0;color:var(--muted)}
+
+    /* Footer */
+    footer.sitefoot{padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);display:flex;flex-direction:column;gap:12px}
+    .contact-row{display:flex;flex-direction:column;gap:8px}
+    .micro-form{display:flex;gap:8px}
+    .micro-form input{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#fff}
+
+    /* Accessibility & focus */
+    :focus{outline:none}
+    a:focus, button:focus, input:focus {box-shadow:0 0 0 4px rgba(255,183,3,0.12);border-radius:8px}
+
+    /* Responsive */
+    @media(min-width:720px){
+      .hero{display:grid;grid-template-columns:1fr 420px;gap:18px}
+      .visual-stage{height:320px}
+      .mosaic-wrap{column-count:2}
+    }
+    @media(min-width:1080px){
+      .mosaic-wrap{column-count:3}
+      .nav{padding:14px}
+      .shell{gap:32px}
+    }
+
+    /* Micro-UI: custom cursor + typing microcopy */
+    .no-cursor{cursor:none}
+    .cursor-dot{position:fixed;top:0;left:0;width:18px;height:18px;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:9999;mix-blend-mode:screen}
+    .typewriter{display:inline-block;color:var(--primary);font-weight:700}
+
+    /* Small helpers */
+    .muted{color:var(--muted)}
+    .section-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+
+    /* Small visual nicety for progress bar */
+    .page-progress{
+      position:fixed;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--primary));
+      transform-origin:left;transform:scaleX(0);transition:transform 160ms linear; z-index:80;
+      border-bottom-left-radius:4px;border-bottom-right-radius:4px;
     }
   </style>
 </head>
-<body>
+<body class="no-cursor" aria-label="MediaCraft reimagined single page">
 
-<nav>
-  <button id="menu-toggle" aria-expanded="false" aria-controls="menu-panel">Menu</button>
-  <div id="menu-panel" class="menu-panel" aria-hidden="true">
-    <a href="#services">Services</a>
-    <a href="#portfolio">Portfolio</a>
-    <a href="#contact">Contact</a>
-  </div>
-</nav>
+  <div id="cursor" class="cursor-dot" aria-hidden="true" style="background:radial-gradient(circle at 30% 30%, rgba(255,183,3,0.95), rgba(0,180,216,0.65));box-shadow:0 8px 30px rgba(0,0,0,0.6);"></div>
 
-<section id="portfolio" class="portfolio">
-  <img src="image1.jpg" alt="Project 1" loading="lazy">
-  <img src="image2.jpg" alt="Project 2" loading="lazy">
-  <img src="image3.jpg" alt="Project 3" loading="lazy">
-</section>
+  <div id="progress" class="page-progress" aria-hidden="true"></div>
 
-<script>
-  const menuToggle = document.getElementById('menu-toggle');
-  const menuPanel = document.getElementById('menu-panel');
+  <main class="shell" id="main" role="main">
 
-  menuToggle.addEventListener('click', () => {
-    const isOpen = menuPanel.classList.toggle('open');
-    menuToggle.setAttribute('aria-expanded', isOpen);
-    menuPanel.setAttribute('aria-hidden', !isOpen);
-  });
+    <!-- Top navigation -->
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="MediaCraft home">
+        <div class="brand-mark" aria-hidden="true">MC</div>
+        <div>
+          <div class="brand-name">MediaCraft</div>
+          <div class="brand-tag">Build · Brand · Engage</div>
+        </div>
+      </a>
 
-  document.addEventListener('click', (e) => {
-    if (!menuPanel.contains(e.target) && !menuToggle.contains(e.target)) {
-      menuPanel.classList.remove('open');
-      menuToggle.setAttribute('aria-expanded', false);
-      menuPanel.setAttribute('aria-hidden', true);
-    }
-  });
-</script>
+      <div class="nav-actions" role="group" aria-label="Primary actions">
+        <button class="btn" id="hireBtn">Hire a Creator</button>
+        <button class="btn ghost" id="portfolioBtn">Portfolio</button>
+
+        <div class="menu-toggle" aria-hidden="false">
+          <input id="menuChk" type="checkbox" aria-label="Toggle main menu" />
+          <label for="menuChk" class="btn ghost" id="menuLabel" aria-expanded="false">Menu</label>
+
+          <!-- Mobile menu panel -->
+          <nav id="mobileMenu" class="menu-panel" aria-hidden="true" aria-label="Mobile menu">
+            <a href="#home">Home</a>
+            <a href="#works">Portfolio</a>
+            <a href="#how">How We Work</a>
+            <a href="#contactTitle">Contact</a>
+          </nav>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero" id="home" aria-labelledby="heroTitle">
+      <div class="hero-grid">
+        <div class="kicker">Creative Studio</div>
+        <h1 id="heroTitle" class="title">We craft experiences — from idea to obsession.</h1>
+        <p class="lead">Design systems, cinematic video, immersive audio and product experiences with measurable outcomes. <span class="typewriter" aria-hidden="true"></span></p>
+
+        <div class="section-head">
+          <strong style="color:#fff">Core Services</strong>
+          <small class="muted">Swipe or arrow through</small>
+        </div>
+
+        <div class="services" role="list" aria-label="Services carousel">
+          <article class="svc" role="listitem" tabindex="0" aria-labelledby="svc1">
+            <h4 id="svc1">Brand Strategy</h4>
+            <p>Identity systems, tone, and go-to-market craft.</p>
+          </article>
+
+          <article class="svc" role="listitem" tabindex="0" aria-labelledby="svc2">
+            <h4 id="svc2">Video & Motion</h4>
+            <p>Short films, ads, and platform-optimised edits.</p>
+          </article>
+
+          <article class="svc" role="listitem" tabindex="0" aria-labelledby="svc3">
+            <h4 id="svc3">Audio Production</h4>
+            <p>Compositions, sound design and sonic branding.</p>
+          </article>
+
+          <article class="svc" role="listitem" tabindex="0" aria-labelledby="svc4">
+            <h4 id="svc4">Product Design</h4>
+            <p>UX/UI, prototypes and interaction systems.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="visual-stage" aria-hidden="true">
+        <div class="layer" style="transform:translate3d(-6px,-6px,0) scale(.98)">
+          <div class="card-visual">
+            <h3>Studio Snapshot</h3>
+            <p>Small teams, big ideas — we prototype in days and ship with polish.</p>
+          </div>
+        </div>
+
+        <div class="layer" style="transform:translate3d(8px,8px,0) scale(1.02)">
+          <div class="card-visual" style="width:72%;background:linear-gradient(180deg, rgba(0,180,216,0.08), rgba(255,183,3,0.02));color:#02111a">
+            <h3>Featured Project</h3>
+            <p>Cross-platform launch that increased brand lift by measurable metrics.</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Portfolio -->
+    <section aria-labelledby="works" style="display:flex;flex-direction:column;gap:12px">
+      <div class="section-head">
+        <h2 id="works" style="margin:0;color:#fff">Selected Work</h2>
+        <div class="muted">A rotating selection of projects</div>
+      </div>
+
+      <div class="mosaic-wrap" role="list">
+        <article class="mosaic-card" role="listitem" tabindex="0" aria-labelledby="m1">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop&s=placeholder" alt="Visual identity packaging" loading="lazy"/>
+          <div class="mosaic-meta">
+            <h5 id="m1">Lunar Tea — Visual Identity</h5>
+            <p>Packaging, brandbook and retail rollout.</p>
+          </div>
+        </article>
+
+        <article class="mosaic-card" role="listitem" tabindex="0" aria-labelledby="m2">
+          <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1200&auto=format&fit=crop&s=placeholder" alt="Short film still" loading="lazy"/>
+          <div class="mosaic-meta">
+            <h5 id="m2">A Quiet Moment — Short Film</h5>
+            <p>Direction, color grading and finishing.</p>
+          </div>
+        </article>
+
+        <article class="mosaic-card" role="listitem" tabindex="0" aria-labelledby="m3">
+          <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop&s=placeholder" alt="Sound studio console" loading="lazy"/>
+          <div class="mosaic-meta">
+            <h5 id="m3">Night Drive — Music Production</h5>
+            <p>Compositions, mixing and sonic identity.</p>
+          </div>
+        </article>
+
+        <article class="mosaic-card" role="listitem" tabindex="0" aria-labelledby="m4">
+          <img src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=6c7f6bde3b2b4a1d9f8e4ea2a9e3c1e2" alt="Product UI sample" loading="lazy"/>
+          <div class="mosaic-meta">
+            <h5 id="m4">Trackr — Product UX</h5>
+            <p>Design system and interactions.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- How we work -->
+    <section aria-labelledby="how" style="display:flex;flex-direction:column;gap:12px">
+      <div class="section-head">
+        <h2 id="how" style="margin:0;color:#fff">How We Work</h2>
+        <div class="muted">A simple, humane process</div>
+      </div>
+
+      <div class="timeline" role="list">
+        <div class="tl-item" role="listitem">
+          <div class="tl-bullet" aria-hidden="true"></div>
+          <div class="tl-body">
+            <h6>Discover</h6>
+            <p>We listen, research and align on measurable goals.</p>
+          </div>
+        </div>
+
+        <div class="tl-item" role="listitem">
+          <div class="tl-bullet" aria-hidden="true" style="background:var(--primary)"></div>
+          <div class="tl-body">
+            <h6>Prototype</h6>
+            <p>Rapid experiments that validate direction quickly.</p>
+          </div>
+        </div>
+
+        <div class="tl-item" role="listitem">
+          <div class="tl-bullet" aria-hidden="true" style="background:linear-gradient(90deg,var(--primary),var(--accent))"></div>
+          <div class="tl-body">
+            <h6>Build & Polish</h6>
+            <p>High-fidelity delivery, iteration and handoff.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact footer -->
+    <footer class="sitefoot" role="contentinfo" aria-labelledby="contactTitle">
+      <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">
+        <div>
+          <h3 id="contactTitle" style="margin:0;color:#fff">Ready to begin?</h3>
+          <p class="muted">Tell us about your project and we'll reply within one business day.</p>
+        </div>
+
+        <div style="display:flex;gap:8px;align-items:center">
+          <a class="btn" href="https://wa.me/233540281796" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
+          <a class="btn ghost" href="mailto:hello@mediacraft.example">Email Us</a>
+        </div>
+      </div>
+
+      <div class="contact-row">
+        <form id="microContact" class="micro-form" aria-label="Quick contact form">
+          <input type="text" name="name" placeholder="Your name" aria-label="Your name" required />
+          <input type="email" name="email" placeholder="Email" aria-label="Email address" required />
+          <button class="btn" type="submit">Send</button>
+        </form>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <small class="muted">© <span id="yr"></span> MediaCraft — All rights reserved</small>
+          <small class="muted">Designed for accessibility & performance</small>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Accessible modal (Hire form) -->
+  <dialog id="hireModal" aria-labelledby="hireTitle">
+    <form method="dialog" style="padding:18px;min-width:320px;max-width:620px;display:flex;flex-direction:column;gap:10px">
+      <h3 id="hireTitle">Quick Brief</h3>
+      <label>
+        <span class="sr-only">Your name</span>
+        <input name="fullname" placeholder="Your name" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)" required />
+      </label>
+      <label>
+        <span class="sr-only">Project summary</span>
+        <textarea name="project" rows="4" placeholder="Short project summary" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)" required></textarea>
+      </label>
+
+      <div style="display:flex;gap:8px;justify-content:flex-end">
+        <button class="btn" type="submit">Send</button>
+        <button class="btn ghost" type="button" id="closeHire">Cancel</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script>
+    // ======================================
+    // Interactions + accessibility
+    // ======================================
+
+    // Populate year
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Page progress (top)
+    (function(){
+      const progress = document.getElementById('progress');
+      function update(){
+        const scrolled = window.scrollY || window.pageYOffset;
+        const height = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = height ? (scrolled / height) : 0;
+        progress.style.transform = `scaleX(${Math.min(Math.max(pct,0),1)})`;
+      }
+      window.addEventListener('scroll', update, {passive:true});
+      window.addEventListener('resize', update);
+      update();
+    })();
+
+    // Custom cursor
+    (function(){
+      const cursor = document.getElementById('cursor');
+      if(!cursor) return;
+      let x = window.innerWidth/2, y = window.innerHeight/2;
+      let tx = x, ty = y;
+      function raf(){ tx += (x - tx) * 0.18; ty += (y - ty) * 0.18; cursor.style.transform = `translate3d(${tx}px,${ty}px,0) translate(-50%,-50%)`; requestAnimationFrame(raf); }
+      raf();
+      document.addEventListener('mousemove', (e)=>{ x = e.clientX; y = e.clientY; });
+      window.addEventListener('touchstart', ()=>{ cursor.style.display = 'none'; document.body.classList.remove('no-cursor') });
+    })();
+
+    // Typing microcopy in hero
+    (function(){
+      const words = ['branding.', 'storytelling.', 'sound design.', 'product thinking.'];
+      const el = document.querySelector('.typewriter');
+      if(!el) return;
+      let i = 0, j = 0, forward = true;
+      function tick(){
+        const w = words[i];
+        el.textContent = w.slice(0,j) + (j % 2 === 0 ? ' ' : '\u258F');
+        if(forward){ j++; if(j > w.length){ forward = false; setTimeout(tick, 900); return } }
+        else { j--; if(j === 0){ forward = true; i = (i+1) % words.length } }
+        setTimeout(tick, forward ? 90 : 30);
+      }
+      tick();
+    })();
+
+    // Dialog controls, portfolio scroll and mobile menu sync
+    (function(){
+      const modal = document.getElementById('hireModal');
+      const open = document.getElementById('hireBtn');
+      const close = document.getElementById('closeHire');
+      const portfolioBtn = document.getElementById('portfolioBtn');
+      const menuChk = document.getElementById('menuChk');
+      const menuLabel = document.getElementById('menuLabel');
+      const mobileMenu = document.getElementById('mobileMenu');
+
+      // Open modal
+      open.addEventListener('click', ()=>{
+        if(typeof modal.showModal === 'function'){
+          modal.showModal();
+          const first = modal.querySelector('input,textarea,button');
+          if(first) first.focus();
+        } else {
+          location.href = 'mailto:hello@mediacraft.example';
+        }
+      });
+      close.addEventListener('click', ()=> modal.close());
+      modal.addEventListener('cancel', ()=> modal.close());
+
+      // Portfolio button scroll
+      if(portfolioBtn){
+        portfolioBtn.addEventListener('click', (e)=>{
+          e.preventDefault();
+          const target = document.getElementById('works');
+          if(target){
+            target.setAttribute('tabindex','-1');
+            target.scrollIntoView({behavior:'smooth',block:'start'});
+            setTimeout(()=>{ target.focus(); }, 450);
+          }
+          if(menuChk && menuChk.checked){ menuChk.checked = false; syncMenu(); }
+        });
+      }
+
+      // Sync menu aria
+      function syncMenu(){
+        if(!menuChk || !menuLabel || !mobileMenu) return;
+        const expanded = !!menuChk.checked;
+        menuLabel.setAttribute('aria-expanded', String(expanded));
+        mobileMenu.setAttribute('aria-hidden', String(!expanded));
+      }
+      if(menuChk){ menuChk.addEventListener('change', syncMenu); syncMenu(); }
+
+      // Close menu when link clicked
+      if(mobileMenu){
+        mobileMenu.addEventListener('click', (ev)=>{
+          if(ev.target && ev.target.matches && ev.target.matches('a')){
+            if(menuChk){ menuChk.checked = false; syncMenu(); }
+          }
+        });
+      }
+
+      // Close menu clicking outside
+      document.addEventListener('click', (ev)=>{
+        const toggle = document.querySelector('.menu-toggle');
+        if(menuChk && menuChk.checked && toggle && !toggle.contains(ev.target)){
+          menuChk.checked = false; syncMenu();
+        }
+      }, {capture:false});
+    })();
+
+    // Mosaic subtle parallax on mousemove
+    (function(){
+      const items = document.querySelectorAll('.mosaic-card');
+      items.forEach((el)=>{
+        el.addEventListener('mousemove', (e)=>{
+          const rect = el.getBoundingClientRect();
+          const cx = rect.left + rect.width/2;
+          const cy = rect.top + rect.height/2;
+          const dx = (e.clientX - cx) / rect.width;
+          const dy = (e.clientY - cy) / rect.height;
+          const img = el.querySelector('img');
+          if(img) img.style.transform = `scale(1.03) translate(${dx * 6}px, ${dy * 6}px)`;
+        });
+        el.addEventListener('mouseleave', ()=>{
+          const img = el.querySelector('img');
+          if(img) img.style.transform = '';
+        });
+      });
+    })();
+
+    // Visual stage parallax on scroll
+    (function(){
+      const layers = document.querySelectorAll('.visual-stage .layer');
+      function onScroll(){
+        const y = window.scrollY || window.pageYOffset;
+        layers.forEach((el, idx)=>{
+          const factor = (idx+1) * 0.02;
+          el.style.transform = `translate3d(${(y*factor)%30 - 10}px,${(y*factor)%18 - 9}px,0)`;
+        });
+      }
+      window.addEventListener('scroll', onScroll, {passive:true});
+      onScroll();
+    })();
+
+    // Reveal animations for timeline & mosaic
+    (function(){
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting) e.target.style.transform = 'translateY(0)';
+        });
+      }, {threshold:0.12});
+      document.querySelectorAll('.mosaic-card,.tl-item').forEach(el=>{ el.style.transform='translateY(12px)'; el.style.transition='transform 600ms var(--ease)'; io.observe(el); });
+    })();
+
+    // Services carousel keyboard nav
+    (function(){
+      const track = document.querySelector('.services');
+      if(!track) return;
+      track.addEventListener('keydown', (e)=>{
+        if(e.key === 'ArrowRight') track.scrollBy({left:260,behavior:'smooth'});
+        if(e.key === 'ArrowLeft') track.scrollBy({left:-260,behavior:'smooth'});
+      });
+      track.setAttribute('tabindex','0');
+    })();
+
+    // Micro form submit handler (UX only)
+    (function(){
+      const form = document.getElementById('microContact');
+      if(!form) return;
+      form.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const btn = form.querySelector('button');
+        btn.textContent = 'Sending...';
+        setTimeout(()=>{ btn.textContent = 'Sent'; form.reset(); setTimeout(()=>btn.textContent='Send',1200); }, 800);
+      });
+    })();
+
+    // NOTE: A discreet, playful easter egg is embedded in this page and intentionally not documented here.
+  </script>
 
 </body>
 </html>
