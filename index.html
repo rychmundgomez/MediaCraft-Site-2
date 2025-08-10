@@ -377,13 +377,6 @@
       </div>
     </section>
 
-    <!-- How we work -->
-    <section aria-labelledby="how" style="display:flex;flex-direction:column;gap:12px">
-      <div class="section-head">
-        <h2 id="how" style="margin:0;color:#fff">How We Work</h2>
-        <div class="muted">A simple, humane process</div>
-      </div>
-
       <!-- Our Services: improved grid (separate from hero carousel) -->
       <section id="ourServices" aria-labelledby="ourServicesTitle">
         <h3 id="ourServicesTitle" style="margin:0;color:#fff">Our Services</h3>
@@ -411,28 +404,35 @@
         </div>
       </section>
 
-      <div class="timeline" role="list">
+      <!-- How we work -->
+    <section aria-labelledby="how" style="display:flex;flex-direction:column;gap:12px">
+      <div class="section-head">
+        <h2 id="how" style="margin:0;color:#fff">How We Work</h2>
+        <div class="muted">A simple, humane process</div>
+      </div>
+      
+ <div class="timeline" role="list">
         <div class="tl-item reveal-hidden" role="listitem">
           <div class="tl-bullet" aria-hidden="true"></div>
           <div class="tl-body">
-            <h6>Discover</h6>
-            <p>We listen, research and align on measurable goals.</p>
+            <h6>Onboard & Assign</h6>
+            <p>We listen, understand your vision and match you with the right expert.</p>
           </div>
         </div>
 
         <div class="tl-item reveal-hidden" role="listitem">
           <div class="tl-bullet" aria-hidden="true" style="background:var(--primary)"></div>
           <div class="tl-body">
-            <h6>Prototype</h6>
-            <p>Rapid experiments that validate direction quickly.</p>
+            <h6>Manage & Review</h6>
+            <p>We oversee project execution and quality control.</p>
           </div>
         </div>
 
         <div class="tl-item reveal-hidden" role="listitem">
           <div class="tl-bullet" aria-hidden="true" style="background:linear-gradient(90deg,var(--primary),var(--accent))"></div>
           <div class="tl-body">
-            <h6>Build & Polish</h6>
-            <p>High-fidelity delivery, iteration and handoff.</p>
+            <h6>Build, Polish & Deliver</h6>
+            <p>You get high-quality delivery, seamless iteration, and smooth handoff.</p>
           </div>
         </div>
       </div>
@@ -448,16 +448,61 @@
 
         <div style="display:flex;gap:8px;align-items:center">
           <a class="btn" href="https://wa.me/233540281796" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
-          <a class="btn ghost" href="mailto:hello@mediacraft.example">Email Us</a>
+          <a class="btn ghost" href="mailto:gomezrychmund244@gmail.com">Email Us</a>
         </div>
       </div>
 
-      <div class="contact-row">
-        <form id="microContact" class="micro-form" aria-label="Quick contact form">
-          <input type="text" name="name" placeholder="Your name" aria-label="Your name" required />
-          <input type="email" name="email" placeholder="Email" aria-label="Email address" required />
-          <button class="btn" type="submit">Send</button>
-        </form>
+<div class="contact-row">
+  <form id="microContact" class="micro-form" aria-label="Quick contact form">
+    <input type="text" name="name" placeholder="Your name" aria-label="Your name" required />
+    <input type="email" name="email" placeholder="Email" aria-label="Email address" required />
+    <button class="btn" type="submit">Send</button>
+  </form>
+</div>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    align-items: center; /* Vertical center */
+    justify-content: center; /* Horizontal center */
+    background-color: #f5f5f5; /* Soft background */
+  }
+
+  .micro-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 300px;
+    width: 100%;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .micro-form input,
+  .micro-form button {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .micro-form button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .micro-form button:hover {
+    background-color: #0056b3;
+  }
+</style>
 
         <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
           <small class="muted">© <span id="yr"></span> MediaCraft — All rights reserved</small>
