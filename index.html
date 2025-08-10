@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>MediaCraft</title>
 
-  <!-- Fonts -->
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
 
   <!-- Favicon -->
@@ -14,7 +14,6 @@
   <meta name="description" content="MediaCraft — crafted design, film, audio and product experiences. Reimagined single-page UI." />
 
   <style>
-    /* All your existing styles unchanged */
     :root{
       --bg-1: #0f1720;
       --bg-2: #071027;
@@ -27,44 +26,213 @@
       --ease: cubic-bezier(.2,.9,.25,1);
       --max-width: 1200px;
     }
-    /* (styles truncated for brevity — keep all your original CSS here) */
+    body{
+      margin:0;
+      background:var(--bg-1);
+      font-family:Poppins, sans-serif;
+      color:white;
+      overflow-x:hidden;
+    }
+    /* Custom Cursor */
+    .cursor-dot{
+      position:fixed;
+      width:20px;
+      height:20px;
+      border-radius:50%;
+      pointer-events:none;
+      transform:translate(-50%,-50%);
+      transition:transform 0.15s ease-out;
+      z-index:9999;
+    }
+    /* Progress Bar */
+    .page-progress{
+      position:fixed;
+      top:0;
+      left:0;
+      height:4px;
+      background:var(--primary);
+      z-index:10000;
+      width:0%;
+    }
+    /* Navigation */
+    .nav{
+      max-width:var(--max-width);
+      margin:auto;
+      padding:var(--gap);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      text-decoration:none;
+      color:white;
+      gap:10px;
+    }
+    .brand-mark{
+      width:50px;
+      height:50px;
+      border-radius:10px;
+      overflow:hidden;
+      padding:0;
+      background:none !important;
+    }
+    .brand-name{
+      font-weight:700;
+      font-size:1.2rem;
+    }
+    .brand-tag{
+      font-size:0.8rem;
+      color:var(--muted);
+    }
+    /* Buttons */
+    .btn{
+      padding:8px 16px;
+      background:var(--primary);
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+    }
+    .btn.ghost{
+      background:transparent;
+      border:2px solid var(--primary);
+      color:var(--primary);
+    }
+    /* Sections */
+    section{
+      max-width:var(--max-width);
+      margin:auto;
+      padding:calc(var(--gap)*2) var(--gap);
+    }
+    .hero{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      gap:20px;
+      padding-top:80px;
+    }
+    .services, .portfolio, .about, .contact{
+      display:grid;
+      gap:var(--gap);
+    }
+    .card{
+      background:var(--glass);
+      padding:20px;
+      border-radius:var(--radius);
+      transition:transform 0.3s var(--ease);
+    }
+    .card:hover{
+      transform:translateY(-5px);
+    }
+    footer{
+      text-align:center;
+      padding:20px;
+      color:var(--muted);
+      font-size:0.85rem;
+    }
   </style>
 </head>
-<body class="no-cursor" aria-label="MediaCraft reimagined single page">
+<body>
 
-  <!-- Custom cursor -->
-  <div id="cursor" class="cursor-dot" aria-hidden="true" style="background:radial-gradient(circle at 30% 30%, rgba(255,183,3,0.95), rgba(0,180,216,0.65));box-shadow:0 8px 30px rgba(0,0,0,0.6);"></div>
+  <!-- Custom Cursor -->
+  <div id="cursor" class="cursor-dot" style="background:radial-gradient(circle at 30% 30%, rgba(255,183,3,0.95), rgba(0,180,216,0.65));box-shadow:0 8px 30px rgba(0,0,0,0.6);"></div>
 
-  <!-- Progress -->
-  <div id="progress" class="page-progress" aria-hidden="true"></div>
+  <!-- Progress Bar -->
+  <div id="progress" class="page-progress"></div>
 
-  <main class="shell" id="main" role="main">
-
-    <!-- Top navigation (menu removed) -->
-    <nav class="nav" role="navigation" aria-label="Main navigation">
-      <a class="brand" href="#home" aria-label="MediaCraft home">
-        <div class="brand-mark" aria-hidden="true" style="padding:0; background:none;">
-          <img src="https://i.ibb.co/shRNnZW/7-D218-D48-FB7-E-4275-B4-E2-A647-CBD9-B3-BB.png" alt="MediaCraft logo" style="width:100%; height:100%; border-radius:10px; object-fit:cover;">
-        </div>
-        <div>
-          <div class="brand-name">MediaCraft</div>
-          <div class="brand-tag">Build · Brand · Engage</div>
-        </div>
-      </a>
-
-      <div class="nav-actions" role="group" aria-label="Primary actions">
-        <button class="btn" id="hireBtn">Hire a Creator</button>
-        <button class="btn ghost" id="portfolioBtn">Portfolio</button>
+  <!-- Navigation -->
+  <nav class="nav">
+    <a class="brand" href="#home">
+      <div class="brand-mark">
+        <img src="https://i.ibb.co/shRNnZW/7-D218-D48-FB7-E-4275-B4-E2-A647-CBD9-B3-BB.png" alt="MediaCraft logo" style="width:100%; height:100%; object-fit:cover;">
       </div>
-    </nav>
+      <div>
+        <div class="brand-name">MediaCraft</div>
+        <div class="brand-tag">Build · Brand · Engage</div>
+      </div>
+    </a>
+    <div class="nav-actions">
+      <button class="btn" id="hireBtn">Hire a Creator</button>
+      <button class="btn ghost" id="portfolioBtn">Portfolio</button>
+    </div>
+  </nav>
 
-    <!-- All the rest of your HTML content stays exactly the same -->
-    <!-- ... -->
-  </main>
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <h1>Crafting Digital Experiences</h1>
+    <p>From concept to creation, we bring ideas to life through design, film, audio, and product development.</p>
+    <button class="btn">Get Started</button>
+  </section>
 
-  <!-- Your existing scripts remain unchanged -->
+  <!-- Services Section -->
+  <section class="services" id="services">
+    <h2>Our Services</h2>
+    <div class="card">🎨 Design & Branding</div>
+    <div class="card">🎥 Film & Animation</div>
+    <div class="card">🎵 Audio Production</div>
+    <div class="card">💻 Web & App Development</div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section class="portfolio" id="portfolio">
+    <h2>Portfolio</h2>
+    <div class="card">Project 1</div>
+    <div class="card">Project 2</div>
+    <div class="card">Project 3</div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <h2>About Us</h2>
+    <p>We are a team of multidisciplinary creators who thrive on making exceptional experiences for brands and individuals worldwide.</p>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <h2>Contact Us</h2>
+    <p>Email: hello@mediacraft.com</p>
+    <p>Phone: +123 456 7890</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 MediaCraft. All rights reserved.
+  </footer>
+
+  <!-- JavaScript -->
   <script>
-    // (Keep all your original JavaScript here)
+    // Custom Cursor
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    // Scroll Progress Bar
+    const progress = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+      const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+      progress.style.width = scrolled + '%';
+    });
+
+    // Smooth Scroll for nav buttons
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e){
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({behavior:'smooth'});
+      });
+    });
+
+    // Button actions
+    document.getElementById('hireBtn').addEventListener('click', () => {
+      document.querySelector('#contact').scrollIntoView({behavior:'smooth'});
+    });
+    document.getElementById('portfolioBtn').addEventListener('click', () => {
+      document.querySelector('#portfolio').scrollIntoView({behavior:'smooth'});
+    });
   </script>
 </body>
 </html>
